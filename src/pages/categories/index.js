@@ -5,7 +5,7 @@ import SBreadcrumb from "../../components/Breadcrumb";
 import SButton from "../../components/Button";
 import TableWithAction from "../../components/TableWithAction";
 
-function DashboardPage() {
+function Categories() {
   const token = localStorage.getItem("token");
   if (!token) return <Navigate to={"/signin"} replace={true} />;
   return (
@@ -22,7 +22,7 @@ function DashboardPage() {
       </Navbar>
 
       <Container className="mt-5">
-        <SBreadcrumb />
+        <SBreadcrumb textSecound="Categories" />
         <SButton children={"Tambah"} />
 
         <TableWithAction />
@@ -31,4 +31,4 @@ function DashboardPage() {
   );
 }
 
-export default DashboardPage;
+export default Categories;
