@@ -12,7 +12,6 @@ function Categories() {
   return (
     <>
       <SNavbar />
-
       <Container className="mt-5">
         <SBreadcrumb textSecound="Categories" />
         <SButton children={"Tambah"} />
