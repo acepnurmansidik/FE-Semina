@@ -43,11 +43,13 @@ export default function TableWithAction() {
       </thead>
       <tbody>
         {isLoading ? (
-          <td colSpan={3} style={{ textAlign: "center" }}>
-            <div class="flex items-center justify-center">
-              <Spinner animation="grow" variant="secondary" />
-            </div>
-          </td>
+          <tr>
+            <td colSpan={3} style={{ textAlign: "center" }}>
+              <div className="flex items-center justify-center">
+                <Spinner animation="grow" variant="secondary" />
+              </div>
+            </td>
+          </tr>
         ) : (
           data.map((data, i) => (
             <tr key={i + 1}>
