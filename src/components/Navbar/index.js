@@ -28,7 +28,7 @@ export default function SNavbar() {
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.href = "/login";
+    window.location.href = "/signin";
   };
   return (
     <Navbar bg="dark" variant="dark">
