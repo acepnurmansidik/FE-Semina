@@ -1,14 +1,17 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import SForm from "./form";
 import SAlert from "../../components/Alert";
-import { Navigate, useNavigate } from "react-router-dom";
-import { config } from "../../configs";
+import { useNavigate } from "react-router-dom";
+import { postData } from "../../utils/fetch";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../redux/auth/actions";
 
 const PageSignin = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
+
+  // useDispatch = setiap kali kita mau ada perubahan di reduxnya
 
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState({
@@ -30,16 +33,11 @@ const PageSignin = () => {
   };
 
   const handleOnSubmit = async (e) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const response = await axios.post(
-        `${config.api_host_dev}/cms/auth/signin`,
-        {
-          ...form,
-        }
-      );
-      localStorage.setItem("token", response.data.data.token);
-      setIsLoading(true);
+      const response = await postData(`/cms/auth/signin`, form);
+
+      dispatch(userLogin(response.data.data.token, response.data.data.role));
       navigate("/");
     } catch (err) {
       setIsLoading(false);
@@ -51,7 +49,6 @@ const PageSignin = () => {
     }
   };
 
-  if (token) return <Navigate to={"/"} replace={true} />;
   return (
     <Container className="my-5" md={12}>
       <div className="m-auto" style={{ width: "50%" }}>

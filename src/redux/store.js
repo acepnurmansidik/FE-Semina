@@ -5,19 +5,21 @@ import {
   compose,
 } from "redux";
 
+import thunk from "redux-thunk";
+import authReducer from "./auth/reducer";
 /**
  * NOTE:
  * createStore = untuk membuat reduxnya /store dari redux
  * compose = untuk melihat reduxnya di dalam browser
- * combineReducers = supaya bisa make reducer yang kita buat/modif sendiri
+ * combineReducers = supaya bisa make reducer/state yang kita buat/custome sendiri
  * applyMiddleware = gunain redux thunknya
  */
 
-import thunk from "redux-thunk";
-
 const composerEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const rootReducers = combineReducers({});
+const rootReducers = combineReducers({
+  auth: authReducer,
+});
 
 const store = createStore(
   rootReducers,

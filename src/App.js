@@ -5,8 +5,14 @@ import PageSignin from "./pages/signin";
 import CategoriesPage from "./pages/categories";
 import CategoriesCreate from "./pages/categories/create";
 import CategoriesEdit from "./pages/categories/edit";
+import { useEffect } from "react";
+import { listen } from "./redux/listener";
 
 function App() {
+  useEffect(() => {
+    listen();
+  }, []);
+
   return (
     <Router>
       <Routes>

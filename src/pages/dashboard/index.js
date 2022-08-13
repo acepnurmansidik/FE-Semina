@@ -7,8 +7,6 @@ import SNavbar from "../../components/Navbar";
 import TableWithAction from "../../components/TableWithAction";
 
 function DashboardPage() {
-  const token = localStorage.getItem("token");
-  if (!token) return <Navigate to={"/signin"} replace={true} />;
   return (
     <>
       <SNavbar />
