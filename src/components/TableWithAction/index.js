@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Table } from "react-bootstrap";
-import TbodyWithAction from "../TbodyWithAction";
-import Thead from "../Thead";
 import Pagination from "../Pagination";
+import Tbody from "../TbodyWithAction";
+import Thead from "../Thead";
 
-export default function TableWithAction({
-  thead,
+const TableWithAction = ({
   withoutPagination,
   handlePageClick,
   actionNotDisplay,
   data,
+  thead,
   tbody,
   editUrl,
   deleteAction,
   customAction,
   status,
   pages,
-}) {
+}) => {
   return (
     <>
-      <Table className="mt-3" striped bordered hover>
-        <Thead texts={thead} />
-        <TbodyWithAction
+      <Table striped bordered hover>
+        <Thead text={thead} />
+        <Tbody
           status={status}
           data={data}
           display={tbody}
           editUrl={editUrl}
           deleteAction={deleteAction}
-          customAction={customAction}
           actionNotDisplay={actionNotDisplay}
+          customAction={customAction}
         />
       </Table>
       {!withoutPagination && data.length ? (
@@ -38,4 +38,6 @@ export default function TableWithAction({
       )}
     </>
   );
-}
+};
+
+export default TableWithAction;

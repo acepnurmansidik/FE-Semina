@@ -1,19 +1,19 @@
 import React from "react";
-import { Image, Spinner } from "react-bootstrap";
+import Button from "../Button";
 import { useNavigate } from "react-router-dom";
+import { Image, Spinner } from "react-bootstrap";
 import moment from "moment";
-import SButton from "../Button";
 import { config } from "../../configs";
 
-const TbodyWithAction = (
+const TbodyWithAction = ({
   data,
   display,
   editUrl,
   deleteAction,
   customAction,
   actionNotDisplay,
-  status
-) => {
+  status,
+}) => {
   const navigate = useNavigate();
   return (
     <tbody>
@@ -41,7 +41,7 @@ const TbodyWithAction = (
                           src={`${config.api_image}/${data[key]}`}
                         />
                       ) : key === "date" ? (
-                        moment(data[key].format("DD-MM_YYYY, h:mm:ss a"))
+                        moment(data[key]).format("DD-MM-YYYY, h:mm:ss a")
                       ) : (
                         data[key]
                       )}
@@ -52,22 +52,23 @@ const TbodyWithAction = (
                 <td>
                   {customAction && customAction(data._id, data.statusEvent)}
                   {editUrl && (
-                    <SButton
-                      variant={"success"}
-                      size="sm"
+                    <Button
+                      variant="success"
+                      size={"sm"}
                       action={() => navigate(`${editUrl}/${data._id}`)}
                     >
                       Edit
-                    </SButton>
+                    </Button>
                   )}
                   {deleteAction && (
-                    <SButton
-                      variant={"danger"}
-                      size={"mx-2"}
+                    <Button
+                      className={"mx-2"}
+                      variant="danger"
+                      size={"sm"}
                       action={() => deleteAction(data._id)}
                     >
-                      Delete
-                    </SButton>
+                      Hapus
+                    </Button>
                   )}
                 </td>
               )}
@@ -77,7 +78,7 @@ const TbodyWithAction = (
       ) : (
         <tr>
           <td colSpan={display.length + 1} style={{ textAlign: "center" }}>
-            Data not found!
+            Tidak Ditemukan Data
           </td>
         </tr>
       )}

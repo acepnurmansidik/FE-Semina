@@ -1,13 +1,15 @@
-const Thead = ({ texts }) => {
+import React from "react";
+
+const Thead = ({ text }) => {
   return (
     <thead className="thead-dark">
       <tr>
-        {texts.map((text, i) => {
-          return <th key={i}>{text}</th>;
+        {text.map((text, index) => {
+          return <th key={index}>{text}</th>;
         })}
       </tr>
     </thead>
   );
 };
 
-export default Thead
+export default Thead;
