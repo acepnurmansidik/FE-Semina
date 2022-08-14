@@ -1,68 +1,41 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Spinner, Table } from "react-bootstrap";
-import { config } from "../../configs";
-import SButton from "../Button";
+import { Table } from "react-bootstrap";
+import TbodyWithAction from "../TbodyWithAction";
+import Thead from "../Thead";
+import Pagination from "../Pagination";
 
-export default function TableWithAction() {
-  const token = localStorage.getItem("token");
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const getCategoriesAPI = async () => {
-    try {
-      setIsLoading(true);
-      const response = await axios.get(
-        `${config.api_host_dev}/cms/categories`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setIsLoading(false);
-      setData(response.data.data);
-    } catch (err) {
-      console.log(err.response.msg);
-    }
-  };
-  console.log(data);
-
-  useEffect(() => {
-    getCategoriesAPI();
-  }, []);
-
+export default function TableWithAction({
+  thead,
+  withoutPagination,
+  handlePageClick,
+  actionNotDisplay,
+  data,
+  tbody,
+  editUrl,
+  deleteAction,
+  customAction,
+  status,
+  pages,
+}) {
   return (
-    <Table className="mt-3" striped bordered hover>
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Name</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {isLoading ? (
-          <tr>
-            <td colSpan={3} style={{ textAlign: "center" }}>
-              <div className="flex items-center justify-center">
-                <Spinner animation="grow" variant="secondary" />
-              </div>
-            </td>
-          </tr>
-        ) : (
-          data.map((data, i) => (
-            <tr key={i + 1}>
-              <td>{i + 1}</td>
-              <td>{data.name}</td>
-              <td>
-                <SButton variant={"warning"}>Edit</SButton>
-                <SButton variant={"danger"}>Delete</SButton>
-              </td>
-            </tr>
-          ))
-        )}
-      </tbody>
-    </Table>
+    <>
+      <Table className="mt-3" striped bordered hover>
+        <Thead texts={thead} />
+        <TbodyWithAction
+          status={status}
+          data={data}
+          display={tbody}
+          editUrl={editUrl}
+          deleteAction={deleteAction}
+          customAction={customAction}
+          actionNotDisplay={actionNotDisplay}
+        />
+      </Table>
+      {!withoutPagination && data.length ? (
+        <Pagination pages={pages} handlePageClick={handlePageClick} />
+      ) : (
+        ""
+      )}
+    </>
   );
 }
