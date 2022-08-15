@@ -1,23 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import From from "./form";
 import SBreadcrumb from "../../components/Breadcrumb";
 import SAlert from "../../components/Alert";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { config } from "../../configs";
+import { useNavigate, useParams } from "react-router-dom";
+import { getData, putData } from "../../utils/fetch";
+import { useDispatch } from "react-redux";
+// import { setNotif } from "../../redux/notif/actions";
 
 const CategoryEdit = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { categoryId } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState({
     status: false,
     type: "",
     message: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
   });
+
+  const fetchOneCategories = async () => {
+    const response = await getData(`/cms/categories/${categoryId}`);
+
+    setForm({ ...form, name: response.data.data.name });
+  };
+
+  useEffect(() => {
+    fetchOneCategories();
+  }, []);
 
   const handleChange = (e) => {
     setForm({
@@ -29,10 +42,15 @@ const CategoryEdit = () => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${config.api_host_dev}/cms/categories`,
-        { ...form }
-      );
+      const response = await putData(`/cms/category/${categoryId}`, form);
+
+      // dispatch(
+      //   setNotif(
+      //     true,
+      //     "success",
+      //     `Successfulyl edit category ${response.data.data.name}`
+      //   )
+      // );
       setIsLoading(false);
       navigate("/categories");
     } catch (err) {
@@ -44,6 +62,7 @@ const CategoryEdit = () => {
       });
     }
   };
+
   return (
     <Container>
       <SBreadcrumb

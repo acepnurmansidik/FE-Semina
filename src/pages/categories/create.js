@@ -4,19 +4,19 @@ import From from "./form";
 import SBreadcrumb from "../../components/Breadcrumb";
 import SAlert from "../../components/Alert";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { config } from "../../configs";
-import SNavbar from "../../components/Navbar";
+import { postData } from "../../utils/fetch";
+import { useDispatch } from "react-redux";
+// import { setNotif } from "../../redux/notif/actions";
 
 const CategoryCreate = () => {
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState({
     status: false,
     type: "",
     message: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
   });
@@ -31,19 +31,20 @@ const CategoryCreate = () => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     try {
-      await axios.post(
-        `${config.api_host_dev}/cms/categories`,
-        { ...form },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await postData("/cms/categories", form);
+
+      // dispatch(
+      //   setNotif(
+      //     true,
+      //     "success",
+      //     `Successfulyl added new category ${response.data.data.name}`
+      //   )
+      // );
       setIsLoading(false);
       navigate("/categories");
     } catch (err) {
       setIsLoading(false);
+      console.log(err)
       setAlert({
         status: true,
         type: "danger",
@@ -53,7 +54,6 @@ const CategoryCreate = () => {
   };
   return (
     <>
-      <SNavbar />
       <Container className="mt-5">
         <SBreadcrumb
           textSecound={"Categories"}

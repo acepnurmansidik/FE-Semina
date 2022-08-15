@@ -61,7 +61,7 @@ export default function SNavbar() {
             roles={accessPayments.lihat}
             action={() => navigate("/payments")}
           >
-            Talents
+            Payments
           </NavLink>
           <NavLink
             role={role}

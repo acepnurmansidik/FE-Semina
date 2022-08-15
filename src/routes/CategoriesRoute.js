@@ -9,7 +9,7 @@ export default function CategoriesRoute() {
     <Routes>
       <Route path="/" element={<Categories />} />
       <Route path="/create" element={<Create />} />
-      <Route path="/edit" element={<Edit />} />
+      <Route path="/edit/:categoryId" element={<Edit />} />
     </Routes>
   );
 }
