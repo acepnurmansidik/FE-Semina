@@ -6,7 +6,7 @@ import SAlert from "../../components/Alert";
 import { useNavigate } from "react-router-dom";
 import { postData } from "../../utils/fetch";
 import { useDispatch } from "react-redux";
-// import { setNotif } from "../../redux/notif/actions";
+import { setNotif } from "../../redux/notif/actions";
 
 const CategoryCreate = () => {
   const navigate = useNavigate();
@@ -33,22 +33,21 @@ const CategoryCreate = () => {
     try {
       const response = await postData("/cms/categories", form);
 
-      // dispatch(
-      //   setNotif(
-      //     true,
-      //     "success",
-      //     `Successfulyl added new category ${response.data.data.name}`
-      //   )
-      // );
+      dispatch(
+        setNotif(
+          true,
+          "success",
+          `Success create new category ${response.data.data.name}`
+        )
+      );
       setIsLoading(false);
       navigate("/categories");
     } catch (err) {
       setIsLoading(false);
-      console.log(err)
       setAlert({
         status: true,
         type: "danger",
-        message: err.response.data.msg,
+        message: err?.response?.data?.message || `Bad Request!`,
       });
     }
   };

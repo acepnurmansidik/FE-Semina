@@ -36,6 +36,7 @@ function Categories() {
     // init access
     const access = { tambah: false, hapus: false, delete: false };
     // convert object to array
+    // eslint-disable-next-line array-callback-return
     Object.keys(accessCategories).map((key) => {
       // cek jika role accessnya sama maka akan mendapatkan access
       if (accessCategories[key].indexOf(role) >= 0) {
@@ -65,9 +66,9 @@ function Categories() {
           />
         )}
 
-        {/* {notif.status && (
+        {notif.status && (
           <SAlert message={notif.message} type={notif.typeNotif} />
-        )} */}
+        )}
 
         <Table
           status={categories.status}
