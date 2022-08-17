@@ -47,7 +47,7 @@ const CategoryCreate = () => {
       setAlert({
         status: true,
         type: "danger",
-        message: err?.response?.data?.message || `Bad Request!`,
+        message: err?.response?.data?.msg,
       });
     }
   };

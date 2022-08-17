@@ -8,6 +8,9 @@ import SButton from "../../components/Button";
 import Table from "../../components/TableWithAction";
 import { accessCategories } from "../../const/access";
 import { fetchCategories } from "../../redux/categories/actions";
+import Swal from "sweetalert2";
+import { deleteData } from "../../utils/fetch";
+import { setNotif } from "../../redux/notif/actions";
 
 function Categories() {
   const navigate = useNavigate();
@@ -22,9 +25,6 @@ function Categories() {
   const categories = useSelector((state) => state.categories);
   const notif = useSelector((state) => state.notif);
   // END GET VALUE FROM REDUX
-
-  //handle function
-  const handleDelete = () => {};
 
   // Access for authenctication
   const checkAccess = () => {
@@ -54,6 +54,33 @@ function Categories() {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+
+  //handle function
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You cannot revert these changes!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await deleteData(`/cms/categories/${id}`);
+
+        dispatch(
+          setNotif(
+            true,
+            "success",
+            `Successfuly delete category ${res.data.data.name}`
+          )
+        );
+        dispatch(fetchCategories());
+      }
+    });
+  };
   return (
     <>
       <Container className="mt-5">
