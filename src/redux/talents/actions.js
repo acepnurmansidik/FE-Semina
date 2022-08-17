@@ -42,7 +42,7 @@ export const fetchTalents = () => {
     try {
       setTimeout(() => {
         dispacth(clearNotif());
-      }, 5000);
+      }, 1000);
 
       let params = {
         keyword: getState().talents.keyword,
@@ -50,8 +50,8 @@ export const fetchTalents = () => {
 
       let res = await debouncedFetchTalents(`/cms/talents`, params);
 
-      res.data.data.forEach((item) => {
-        res.avatar = item.image.name;
+      res.data.data.forEach((res) => {
+        res.avatar = res.image.name;
       });
 
       dispacth(

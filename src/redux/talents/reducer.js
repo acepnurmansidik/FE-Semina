@@ -18,7 +18,7 @@ const initialState = {
   status: statuslist.idle,
 };
 
-const reducer = (state = initialState, action) => {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case START_FETCHING_TALENTS:
       return { ...state, status: statuslist.idle };
@@ -35,6 +35,4 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
-
-export default reducer;
+}
