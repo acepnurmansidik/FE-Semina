@@ -20,34 +20,26 @@ export const getData = async (url, params) => {
 };
 
 export const postData = async (url, payload, formData) => {
-  try {
-    const { token } = localStorage.getItem("auth")
-      ? JSON.parse(localStorage.getItem("auth"))
-      : {};
+  const { token } = localStorage.getItem("auth")
+    ? JSON.parse(localStorage.getItem("auth"))
+    : {};
 
-    return await axios.post(`${config.api_host_dev}${url}`, payload, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": formData ? "multipart/form-data" : "application/json",
-      },
-    });
-  } catch (err) {
-    handleError(err);
-  }
+  return await axios.post(`${config.api_host_dev}${url}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": formData ? "multipart/form-data" : "application/json",
+    },
+  });
 };
 
 export const putData = async (url, payload) => {
-  try {
-    const { token } = localStorage.getItem("auth")
-      ? JSON.parse(localStorage.getItem("auth"))
-      : {};
+  const { token } = localStorage.getItem("auth")
+    ? JSON.parse(localStorage.getItem("auth"))
+    : {};
 
-    return await axios.put(`${config.api_host_dev}${url}`, payload, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  } catch (err) {
-    handleError(err);
-  }
+  return await axios.put(`${config.api_host_dev}${url}`, payload, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
 
 export const deleteData = async (url) => {

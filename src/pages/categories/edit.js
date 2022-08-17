@@ -1,77 +1,77 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import From from "./form";
-import SBreadcrumb from "../../components/Breadcrumb";
+import SBreadCrumb from "../../components/Breadcrumb";
 import SAlert from "../../components/Alert";
+import Form from "./form";
 import { useNavigate, useParams } from "react-router-dom";
 import { getData, putData } from "../../utils/fetch";
 import { useDispatch } from "react-redux";
-// import { setNotif } from "../../redux/notif/actions";
+import { setNotif } from "../../redux/notif/actions";
 
-const CategoryEdit = () => {
-  const dispatch = useDispatch();
+function CategoryEdit() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { categoryId } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+  });
+
   const [alert, setAlert] = useState({
     status: false,
     type: "",
     message: "",
   });
-  const [form, setForm] = useState({
-    name: "",
-  });
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const fetchOneCategories = async () => {
-    const response = await getData(`/cms/categories/${categoryId}`);
+    const res = await getData(`/cms/categories/${categoryId}`);
 
-    setForm({ ...form, name: response.data.data.name });
+    setForm({ ...form, name: res.data.data.name });
   };
 
   useEffect(() => {
     fetchOneCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const response = await putData(`/cms/category/${categoryId}`, form);
-
-      // dispatch(
-      //   setNotif(
-      //     true,
-      //     "success",
-      //     `Successfulyl edit category ${response.data.data.name}`
-      //   )
-      // );
-      setIsLoading(false);
+      const res = await putData(`/cms/categories/${categoryId}`, form);
+      dispatch(
+        setNotif(
+          true,
+          "success",
+          `berhasil ubah kategori ${res.data.data.name}`
+        )
+      );
       navigate("/categories");
+      setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
       setAlert({
+        ...alert,
         status: true,
         type: "danger",
         message: err.response.data.msg,
       });
     }
   };
-
   return (
-    <Container>
-      <SBreadcrumb
+    <Container className="mt-3">
+      <SBreadCrumb
         textSecound={"Categories"}
         urlSecound={"/categories"}
-        textThird={"Edit"}
+        textThird="Edit"
       />
       {alert.status && <SAlert type={alert.type} message={alert.message} />}
-      <From
+      <Form
+        edit
         form={form}
         isLoading={isLoading}
         handleChange={handleChange}
@@ -79,6 +79,6 @@ const CategoryEdit = () => {
       />
     </Container>
   );
-};
+}
 
 export default CategoryEdit;
