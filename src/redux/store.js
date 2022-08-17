@@ -9,6 +9,7 @@ import thunk from "redux-thunk";
 import authReducer from "./auth/reducer";
 import categoriesReducer from "./categories/reducer";
 import notifReducer from "./notif/reducer";
+import talentsReducer from "./talents/reducer";
 
 /**
  * NOTE:
@@ -24,6 +25,7 @@ const rootReducers = combineReducers({
   auth: authReducer,
   categories: categoriesReducer,
   notif: notifReducer,
+  talents: talentsReducer,
 });
 
 const store = createStore(

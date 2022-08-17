@@ -6,6 +6,7 @@ import CategoriesRoute from "./CategoriesRoute";
 import GuardRoute from "../components/GuardRoute";
 import GuestOnlyRoute from "../components/GuestOnlyRoute";
 import Login from "../pages/signin";
+import TalentsRoute from "./TalentRoute";
 
 export default function AppRoutes() {
   return (
@@ -33,6 +34,7 @@ export default function AppRoutes() {
           path=""
           element={<Navigate to={"/dashboard"} replace={true} />}
         />
+        <Route path="talents/*" element={<TalentsRoute />} />
       </Route>
     </Routes>
   );
