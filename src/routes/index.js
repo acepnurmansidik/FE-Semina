@@ -7,6 +7,7 @@ import GuardRoute from "../components/GuardRoute";
 import GuestOnlyRoute from "../components/GuestOnlyRoute";
 import Login from "../pages/signin";
 import TalentsRoute from "./TalentRoute";
+import Payments from "../pages/payments";
 
 export default function AppRoutes() {
   return (
@@ -35,6 +36,7 @@ export default function AppRoutes() {
           element={<Navigate to={"/dashboard"} replace={true} />}
         />
         <Route path="talents/*" element={<TalentsRoute />} />
+        <Route path="payments/*" element={<Payments />} />
       </Route>
     </Routes>
   );

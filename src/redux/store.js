@@ -9,8 +9,8 @@ import thunk from "redux-thunk";
 import authReducer from "./auth/reducer";
 import categoriesReducer from "./categories/reducer";
 import notifReducer from "./notif/reducer";
-import talentsReducer from "./talents/reducer";
 import paymentsReducer from "./payments/reducer";
+import talentsReducer from "./talents/reducer";
 
 /**
  * NOTE:

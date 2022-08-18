@@ -15,21 +15,21 @@ export const startFetchingPayments = () => {
   };
 };
 
-export const successFetchPayments = ({ payments }) => {
+export const successFetchingPayments = ({ payments }) => {
   return {
     type: SUCCESS_FETCHING_PAYMENTS,
     payments,
   };
 };
 
-export const errorFetchPayments = () => {
+export const errorFetchingPayments = () => {
   return {
     type: ERROR_FETCHING_PAYMENTS,
   };
 };
 
 export const fetchPayments = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(startFetchingPayments());
     try {
       setTimeout(() => {
@@ -42,9 +42,13 @@ export const fetchPayments = () => {
         res.avatar = res.image.name;
       });
 
-      dispatch(successFetchPayments({ payments: res.data.data }));
+      dispatch(
+        successFetchingPayments({
+          payments: res.data.data,
+        })
+      );
     } catch (err) {
-      dispatch(errorFetchPayments());
+      dispatch(errorFetchingPayments());
     }
   };
 };
