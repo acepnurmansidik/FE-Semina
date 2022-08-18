@@ -16,15 +16,16 @@ import Table from "../../components/TableWithAction";
 export default function TalentsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // REDUX
+  const notif = useSelector((state) => state.notif);
+  const talents = useSelector((state) => state.talents);
+
   const [access, setAccess] = useState({
     tambah: false,
     hapus: false,
     edit: false,
   });
-
-  // REDUX
-  const notif = useSelector((state) => state.notif);
-  const talents = useSelector((state) => state.talents);
 
   const checkAccess = () => {
     let { role } = localStorage.getItem("auth")
@@ -32,13 +33,21 @@ export default function TalentsPage() {
       : {};
 
     const access = { tambah: false, edit: false, hapus: false };
-    Object.keys(accessTalents).forEach((key, index) => {
+    Object.keys(accessTalents).forEach((key) => {
       if (accessTalents[key].indexOf(role) >= 0) {
         access[key] = true;
       }
     });
     setAccess(access);
   };
+
+  useEffect(() => {
+    checkAccess();
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchTalents());
+  }, [dispatch, talents.keyword]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -51,7 +60,7 @@ export default function TalentsPage() {
       confirmButtonText: "Yes, Delete",
       cancelButtonText: "Cancel",
     }).then(async (result) => {
-      if (result.is) {
+      if (result.isConfirmed) {
         const res = await deleteData(`/cms/talents/${id}`);
 
         dispatch(
@@ -65,14 +74,6 @@ export default function TalentsPage() {
       }
     });
   };
-
-  useEffect(() => {
-    checkAccess();
-  }, []);
-
-  useEffect(() => {
-    dispatch(fetchTalents());
-  }, [dispatch, talents.keyword]);
 
   return (
     <Container className="mt-5">
