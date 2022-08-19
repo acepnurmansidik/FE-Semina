@@ -1,47 +1,40 @@
-/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import SAlert from "../../components/Alert";
-import SBreadcrumb from "../../components/Breadcrumb";
-import SButton from "../../components/Button";
-import TableWithAction from "../../components/TableWithAction";
-import { accessPayments } from "../../const/access";
-import { setNotif } from "../../redux/notif/actions";
-import { fetchPayments } from "../../redux/payments/actions";
 import { deleteData } from "../../utils/fetch";
+import { setNotif } from "../../redux/notif/actions";
+import { accessPayments } from "../../const/access";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPayments } from "../../redux/payments/actions";
+import SBreadCrumb from "../../components/Breadcrumb";
+import Button from "../../components/Button";
+import Table from "../../components/TableWithAction";
+import SAlert from "../../components/Alert";
+import Swal from "sweetalert2";
 
-export default function Payments() {
+function PaymentsPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // REDUX
   const notif = useSelector((state) => state.notif);
   const payments = useSelector((state) => state.payments);
 
   const [access, setAccess] = useState({
-    lihat: false,
     tambah: false,
+    hapus: false,
     edit: false,
   });
 
-  // Access for authentication
   const checkAccess = () => {
-    // check access from localstorage
     let { role } = localStorage.getItem("auth")
       ? JSON.parse(localStorage.getItem("auth"))
       : {};
-
-    const access = { lihat: false, edit: false, tambah: false };
-    // convert object to array
-    Object.keys(accessPayments).map((key) => {
+    const access = { tambah: false, hapus: false, edit: false };
+    Object.keys(accessPayments).forEach(function (key, index) {
       if (accessPayments[key].indexOf(role) >= 0) {
         access[key] = true;
       }
     });
-
     setAccess(access);
   };
 
@@ -53,17 +46,16 @@ export default function Payments() {
     dispatch(fetchPayments());
   }, [dispatch]);
 
-  // hanlde function delete
   const handleDelete = (id) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You cannot revert these changes!",
+      title: "Apa kamu yakin?",
+      text: "Anda tidak akan dapat mengembalikan ini!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Delete",
-      cancelButtonText: "Cancel",
+      confirmButtonText: "Iya, Hapus",
+      cancelButtonText: "Batal",
     }).then(async (result) => {
       if (result.isConfirmed) {
         const res = await deleteData(`/cms/payments/${id}`);
@@ -72,40 +64,39 @@ export default function Payments() {
           setNotif(
             true,
             "success",
-            `Successfuly delete payments ${res.data.data}`
+            `berhasil hapus kategori ${res.data.data.type}`
           )
         );
+
         dispatch(fetchPayments());
       }
     });
   };
 
   return (
-    <>
-      <Container className="mt-5">
-        <SBreadcrumb textSecound={"Payments"} />
-        {access.tambah && (
-          <SButton
-            action={() => navigate("/payments/create")}
-            children={"Tambah"}
-            className={"mb-3"}
-          />
-        )}
+    <Container className="mt-3">
+      <SBreadCrumb textSecound={"Payments"} />
 
-        {notif.status && (
-          <SAlert message={notif.message} type={notif.typeNotif} />
-        )}
+      {access.tambah && (
+        <Button className={"mb-3"} action={() => navigate("/payments/create")}>
+          Tambah
+        </Button>
+      )}
 
-        <TableWithAction
-          status={payments.status}
-          thead={["Type", "Avatar", "Aksi"]}
-          data={payments.data}
-          tbody={["type", "avatar"]}
-          editUrl={access.edit ? `/payments/edit` : null}
-          deleteAction={access.hapus ? (id) => handleDelete(id) : null}
-          withoutPagination
-        />
-      </Container>
-    </>
+      {notif.status && (
+        <SAlert type={notif.typeNotif} message={notif.message} />
+      )}
+      <Table
+        status={payments.status}
+        thead={["Type", "Avatar", "Aksi"]}
+        data={payments.data}
+        tbody={["type", "avatar"]}
+        editUrl={access.edit ? `/payments/edit` : null}
+        deleteAction={access.hapus ? (id) => handleDelete(id) : null}
+        withoutPagination
+      />
+    </Container>
   );
 }
+
+export default PaymentsPage;
