@@ -11,6 +11,7 @@ import categoriesReducer from "./categories/reducer";
 import notifReducer from "./notif/reducer";
 import paymentsReducer from "./payments/reducer";
 import talentsReducer from "./talents/reducer";
+import eventsReducer from "./events/reducer";
 
 /**
  * NOTE:
@@ -28,6 +29,7 @@ const rootReducers = combineReducers({
   notif: notifReducer,
   talents: talentsReducer,
   payments: paymentsReducer,
+  events: eventsReducer,
 });
 
 const store = createStore(
