@@ -8,6 +8,7 @@ import GuestOnlyRoute from "../components/GuestOnlyRoute";
 import Login from "../pages/signin";
 import TalentsRoute from "./TalentRoute";
 import PaymentsRoute from "./PaymentsRoute";
+import EventsRoute from "./EventsRoute";
 
 export default function AppRoutes() {
   return (
@@ -37,6 +38,7 @@ export default function AppRoutes() {
         />
         <Route path="talents/*" element={<TalentsRoute />} />
         <Route path="payments/*" element={<PaymentsRoute />} />
+        <Route path="events/*" element={<EventsRoute />} />
       </Route>
     </Routes>
   );
