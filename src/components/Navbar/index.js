@@ -80,9 +80,9 @@ export default function SNavbar() {
           <NavLink
             role={role}
             roles={accesOrders.lihat}
-            action={() => navigate("/transactions")}
+            action={() => navigate("/orders")}
           >
-            Transactions
+            Orders
           </NavLink>
         </Nav>
         <Nav className="justify-content-end">

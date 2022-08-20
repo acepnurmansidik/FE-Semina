@@ -1,14 +1,15 @@
-import { getData } from "../../utils/fetch";
-import { clearNotif } from "../notif/actions";
 import {
+  START_FETCHING_ORDERS,
+  SUCCESS_FETCHING_ORDERS,
   ERROR_FETCHING_ORDERS,
   SET_DATE,
   SET_PAGE,
-  START_FETCHING_ORDERS,
-  SUCCESS_FETCHING_ORDERS,
 } from "./constants";
-import moment from "moment";
+
+import { getData } from "../../utils/fetch";
 import debounce from "debounce-promise";
+import { clearNotif } from "../notif/actions";
+import moment from "moment";
 
 let debouncedFetchOrders = debounce(getData, 1000);
 
@@ -18,22 +19,24 @@ export const startFetchingOrders = () => {
   };
 };
 
-export const errorFethingOrders = () => {
+export const successFetchingOrders = ({ orders, pages }) => {
+  return {
+    type: SUCCESS_FETCHING_ORDERS,
+    orders,
+    pages,
+  };
+};
+
+export const errorFetchingOrders = () => {
   return {
     type: ERROR_FETCHING_ORDERS,
   };
 };
 
-export const successFetchingOrders = ({ orders, page }) => {
-  return {
-    type: SUCCESS_FETCHING_ORDERS,
-    orders,
-    page,
-  };
-};
-
 export const fetchOrders = () => {
   return async (dispatch, getState) => {
+    dispatch(startFetchingOrders());
+
     try {
       setTimeout(() => {
         dispatch(clearNotif());
@@ -65,11 +68,11 @@ export const fetchOrders = () => {
       dispatch(
         successFetchingOrders({
           orders: _temp,
-          pages: res.data.data.page,
+          pages: res.data.data.pages,
         })
       );
-    } catch (err) {
-      dispatch(errorFethingOrders());
+    } catch (error) {
+      dispatch(errorFetchingOrders());
     }
   };
 };
