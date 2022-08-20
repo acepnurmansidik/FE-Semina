@@ -21,12 +21,7 @@ export default function IndexDate({ date, onChangeDate, setIsShowed }) {
   };
 
   return (
-    <div
-      className="position-absolute"
-      // style={{ top: '59px' }}
-      style={{ zIndex: "1" }}
-      ref={refDate}
-    >
+    <div className="position-absolute" style={{ zIndex: "1" }} ref={refDate}>
       <DateRange
         editableDateInputs={true}
         onChange={onChangeDate}
