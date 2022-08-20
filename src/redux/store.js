@@ -13,7 +13,7 @@ import paymentsReducer from "./payments/reducer";
 import talentsReducer from "./talents/reducer";
 import eventsReducer from "./events/reducer";
 import listsReducer from "./lists/reducer";
-import ordersReducer from "./lists/reducer";
+import ordersReducer from "./orders/reducer";
 
 /**
  * NOTE:

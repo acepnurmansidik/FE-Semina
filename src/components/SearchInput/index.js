@@ -1,11 +1,11 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const SearchInput = ({ handleChange, query, disable, className }) => {
+const SearchInput = ({ handleChange, query, disabled, className }) => {
   return (
     <Form.Group>
       <Form.Control
-        disabled={disable}
+        disabled={disabled}
         type="text"
         placeholder="Set keyword here..."
         value={query}
