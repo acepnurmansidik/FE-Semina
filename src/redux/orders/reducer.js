@@ -26,7 +26,7 @@ const initialState = {
   status: statuslist.idle,
 };
 
-export default function reducer(state = initialState, action) {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case START_FETCHING_ORDERS:
       return { ...state, status: statuslist.process };
@@ -57,4 +57,6 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default reducer;

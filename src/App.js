@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { listen } from "./redux/listener";
 import AppRoutes from "./routes";
 
-function App() {
+const App = () => {
   useEffect(() => {
     listen();
   }, []);
@@ -14,6 +14,6 @@ function App() {
       <AppRoutes />
     </Router>
   );
-}
+};
 
 export default App;
