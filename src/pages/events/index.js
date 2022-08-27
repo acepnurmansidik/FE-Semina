@@ -87,7 +87,7 @@ const EventPage = () => {
           setNotif(
             true,
             "success",
-            `Successfult change status event ${res.data.data.title}`
+            `Successfuly change status event ${res.data.data.title}`
           )
         );
 
