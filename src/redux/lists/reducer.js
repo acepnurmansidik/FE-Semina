@@ -17,6 +17,19 @@ const statuslist = {
   error: "error",
 };
 
+let status = [
+  {
+    value: true,
+    label: "Enable",
+    target: { value: true, name: "statusTicketCategories" },
+  },
+  {
+    value: false,
+    label: "Disable",
+    target: { value: false, name: "statusTicketCategories" },
+  },
+];
+
 const initialState = {
   categories: [],
   statusCategories: statuslist.idle,
@@ -24,6 +37,8 @@ const initialState = {
   statusTalents: statuslist.idle,
   events: [],
   statusEvents: statuslist.idle,
+  status,
+  statusTicket: statuslist.success,
 };
 
 export default function reducer(state = initialState, action) {

@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+/* eslint-disable array-callback-return */
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,14 +22,42 @@ import SAlert from "../../components/Alert";
 import Swal from "sweetalert2";
 import STable from "../../components/TableWithAction";
 import SearchInput from "../../components/SearchInput";
+import { accessEvents } from "../../const/access";
 
 const EventPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [access, setAccess] = useState({
+    tambah: false,
+    hapus: false,
+    edit: false,
+  });
 
   const notif = useSelector((state) => state.notif);
   const events = useSelector((state) => state.events);
   const lists = useSelector((state) => state.lists);
+
+  // Access fo authentication
+  const checkAccess = () => {
+    let { role } = localStorage.getItem("auth")
+      ? JSON.parse(localStorage.getItem("auth"))
+      : {};
+
+    // init access
+    const access = { tambah: false, hapus: false, edit: false };
+    // conver to aaray
+    Object.keys(accessEvents).map((key) => {
+      // cek jika role accessnya sama maka akan mendapatkan access
+      if (accessEvents[key].indexOf(role) >= 0) {
+        access[key] = true;
+      }
+    });
+    setAccess(access);
+  };
+
+  useEffect(() => {
+    checkAccess();
+  }, []);
 
   useEffect(() => {
     dispatch(fetchEvents());
@@ -99,9 +128,11 @@ const EventPage = () => {
   return (
     <Container className="mt-5">
       <SBreadCrumb textSecound={"Events"} />
-      <SButton className={"mb-3"} action={() => navigate("/events/create")}>
-        Tambah
-      </SButton>
+      {access.tambah && (
+        <SButton className={"mb-3"} action={() => navigate("/events/create")}>
+          Tambah
+        </SButton>
+      )}
       <Row>
         <Col>
           <SearchInput

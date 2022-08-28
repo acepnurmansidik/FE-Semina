@@ -125,7 +125,7 @@ const EventsForm = ({
         Tambah keypoint
       </Button>
 
-      <Row>
+      <Row className="mt-3">
         <Col>
           <SelectBox
             label={"Speaker"}
@@ -201,11 +201,20 @@ const EventsForm = ({
             <TextInputWithLabel
               placeholder={"Masukan status"}
               label={"Status"}
-              name="status"
-              value={tic.status}
+              name="statusTicketCategories"
+              value={tic.statusTicketCategories}
               type="text"
               onChange={(e) => handleChangeTicket(e, index)}
             />
+            {/* <SelectBox
+              placeholder={"Masukan status"}
+              label={"Status"}
+              name="statusTicketCategories"
+              value={tic.statusTicketCategories}
+              options={lists.status}
+              isClearable={true}
+              handleChange={(e) => handleChangeTicket(e, index)}
+            /> */}
           </Col>
           {index !== 0 && (
             <Col
