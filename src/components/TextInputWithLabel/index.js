@@ -9,9 +9,10 @@ const TextInputWithLabel = ({
   onChange,
   placeholder,
   label,
+  controlId = "formBasicEmail",
 }) => {
   return (
-    <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Group className="mb-3" controlId={controlId}>
       <Form.Label>{label}</Form.Label>
       <TextInput
         name={name}

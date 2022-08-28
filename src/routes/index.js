@@ -10,6 +10,7 @@ import TalentsRoute from "./TalentRoute";
 import PaymentsRoute from "./PaymentsRoute";
 import EventsRoute from "./EventsRoute";
 import OrdersRoute from "./OrdersRoute";
+import OrganizersRoute from "./Organizers";
 
 const AppRoutes = () => {
   return (
@@ -37,6 +38,7 @@ const AppRoutes = () => {
         <Route path="payments/*" element={<PaymentsRoute />} />
         <Route path="events/*" element={<EventsRoute />} />
         <Route path="orders/*" element={<OrdersRoute />} />
+        <Route path="organizers/*" element={<OrganizersRoute />} />
         <Route
           path=""
           element={<Navigate to={"/dashboard"} replace={true} />}

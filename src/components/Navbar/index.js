@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
-  accesOrders,
+  accessOrders,
+  accessOrganizers,
   accessCategories,
   accessEvents,
   accessParticipant,
   accessPayments,
   accessTalents,
+  accessAdmin,
 } from "../../const/access";
 import NavLink from "../NavAccess";
 
@@ -79,10 +81,24 @@ export default function SNavbar() {
           </NavLink>
           <NavLink
             role={role}
-            roles={accesOrders.lihat}
+            roles={accessOrders.lihat}
             action={() => navigate("/orders")}
           >
             Orders
+          </NavLink>
+          <NavLink
+            role={role}
+            roles={accessOrganizers.lihat}
+            action={() => navigate("/organizers")}
+          >
+            Organizer
+          </NavLink>
+          <NavLink
+            role={role}
+            roles={accessAdmin.lihat}
+            action={() => navigate("/admin")}
+          >
+            Admin
           </NavLink>
         </Nav>
         <Nav className="justify-content-end">

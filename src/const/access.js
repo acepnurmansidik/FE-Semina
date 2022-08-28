@@ -33,9 +33,23 @@ export const accessParticipant = {
   hapus: ["organizer"],
 };
 
-export const accesOrders = {
+export const accessOrders = {
   lihat: ["organizer", "admin", "owner"],
   tambah: ["organizer", "admin", "owner"],
   edit: ["organizer", "admin", "owner"],
   hapus: ["organizer", "admin", "owner"],
+};
+
+export const accessOrganizers = {
+  lihat: ["owner"],
+  tambah: ["owner"],
+  edit: ["owner"],
+  hapus: ["owner"],
+};
+
+export const accessAdmin = {
+  lihat: ["owner"],
+  tambah: ["owner"],
+  edit: ["owner"],
+  hapus: ["owner"],
 };

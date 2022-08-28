@@ -104,8 +104,6 @@ const EventsCreate = () => {
         });
       }
     } else if (e.target.name === "category" || e.target.name === "talent") {
-      console.log("e.target.name");
-      console.log(e.target.name);
       setForm({ ...form, [e.target.name]: e });
     } else {
       setForm({ ...form, [e.target.name]: e.target.value });
@@ -139,8 +137,8 @@ const EventsCreate = () => {
           `berhasil tambah events ${res.data.data.title}`
         )
       );
-      navigate("/events");
       setIsLoading(false);
+      navigate("/events");
     } catch (err) {
       setIsLoading(false);
       setAlert({
