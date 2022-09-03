@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ const OrderPage = () => {
   const notif = useSelector((state) => state.notif);
   const orders = useSelector((state) => state.orders);
 
-  const [isShowed, setIsShowed] = React.useState(false);
+  const [isShowed, setIsShowed] = useState(false);
 
   useEffect(() => {
     return () => {
