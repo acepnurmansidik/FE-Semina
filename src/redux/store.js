@@ -14,6 +14,7 @@ import talentsReducer from "./talents/reducer";
 import eventsReducer from "./events/reducer";
 import listsReducer from "./lists/reducer";
 import ordersReducer from "./orders/reducer";
+import adminReducer from "./admins/reducer";
 
 /**
  * NOTE:
@@ -34,6 +35,7 @@ const rootReducers = combineReducers({
   events: eventsReducer,
   lists: listsReducer,
   orders: ordersReducer,
+  admins: adminReducer,
 });
 
 const store = createStore(

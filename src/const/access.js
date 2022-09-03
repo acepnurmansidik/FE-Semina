@@ -48,8 +48,8 @@ export const accessOrganizers = {
 };
 
 export const accessAdmin = {
-  lihat: ["owner"],
-  tambah: ["owner"],
-  edit: ["owner"],
-  hapus: ["owner"],
+  lihat: ["organizer"],
+  tambah: ["organizer"],
+  edit: ["organizer"],
+  hapus: ["organizer"],
 };

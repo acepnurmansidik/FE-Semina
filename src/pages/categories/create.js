@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import From from "./form";
+import Form from "./form";
 import SBreadcrumb from "../../components/Breadcrumb";
 import SAlert from "../../components/Alert";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +60,7 @@ const CategoryCreate = () => {
           textThird={"Create"}
         />
         {alert.status && <SAlert type={alert.type} message={alert.message} />}
-        <From
+        <Form
           form={form}
           isLoading={isLoading}
           handleChange={handleChange}

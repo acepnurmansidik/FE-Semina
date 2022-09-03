@@ -43,7 +43,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    // START ## LIST CATEGORIES ===========================
+    // START ## LIST CATEGORIES ====================================
     case START_FETCHING_LISTS_CATEGORIES:
       return { ...state, statusCategories: statuslist.process };
 
@@ -56,8 +56,9 @@ export default function reducer(state = initialState, action) {
         statusCategories: statuslist.success,
         categories: action.categories,
       };
+    // END ## LIST CATEGORIES ======================================
 
-    // END #### LIST TALENTS =============================
+    // START #### LIST TALENTS =====================================
     case START_FETCHING_LISTS_TALENTS:
       return { ...state, statusTalents: statuslist.process };
 
@@ -70,9 +71,9 @@ export default function reducer(state = initialState, action) {
         statusTalents: statuslist.success,
         talents: action.talents,
       };
-    // START ## LIST TALENTS =============================
+    // END ## LIST TALENTS ========================================
 
-    // END #### LIST EVENTS ==============================
+    // START #### LIST EVENTS =====================================
     case START_FETCHING_LISTS_EVENTS:
       return { ...state, statusEvents: statuslist.process };
 
@@ -85,7 +86,7 @@ export default function reducer(state = initialState, action) {
         statusEvents: statuslist.success,
         events: action.events,
       };
-    // START ## LIST EVENTS ==============================
+    // END ## LIST EVENTS =========================================
 
     default:
       return state;

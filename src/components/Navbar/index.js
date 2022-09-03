@@ -6,7 +6,7 @@ import {
   accessOrganizers,
   accessCategories,
   accessEvents,
-  accessParticipant,
+  // accessParticipant,
   accessPayments,
   accessTalents,
   accessAdmin,
@@ -72,13 +72,13 @@ export default function SNavbar() {
           >
             Events
           </NavLink>
-          <NavLink
+          {/* <NavLink
             role={role}
             roles={accessParticipant.lihat}
             action={() => navigate("/participants")}
           >
             Participants
-          </NavLink>
+          </NavLink> */}
           <NavLink
             role={role}
             roles={accessOrders.lihat}

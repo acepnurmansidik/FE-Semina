@@ -1,0 +1,3 @@
+export const START_FETCHING_ADMINS = "redux/admin/START_FETCHING_ADMIN";
+export const ERROR_FETCHING_ADMINS = "redux/admin/ERROR_FETCHING_ADMIN";
+export const SUCCESS_FETCHING_ADMINS = "redux/admin/SUCCESS_FETCHING_ADMIN";

@@ -11,6 +11,7 @@ import PaymentsRoute from "./PaymentsRoute";
 import EventsRoute from "./EventsRoute";
 import OrdersRoute from "./OrdersRoute";
 import OrganizersRoute from "./Organizers";
+import AdminsRoute from "./AdminsRoute";
 
 const AppRoutes = () => {
   return (
@@ -39,6 +40,7 @@ const AppRoutes = () => {
         <Route path="events/*" element={<EventsRoute />} />
         <Route path="orders/*" element={<OrdersRoute />} />
         <Route path="organizers/*" element={<OrganizersRoute />} />
+        <Route path="admin/*" element={<AdminsRoute />} />
         <Route
           path=""
           element={<Navigate to={"/dashboard"} replace={true} />}
