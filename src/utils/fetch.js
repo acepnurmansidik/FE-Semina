@@ -1,8 +1,8 @@
 import axios from "axios";
-import { config } from "../configs";
 import handleError from "./handleError";
+import { config } from "../configs";
 
-export const getData = async (url, params) => {
+export async function getData(url, params) {
   try {
     const { token } = localStorage.getItem("auth")
       ? JSON.parse(localStorage.getItem("auth"))
@@ -15,41 +15,55 @@ export const getData = async (url, params) => {
       },
     });
   } catch (err) {
-    handleError(err);
+    return handleError(err);
   }
-};
+}
 
-export const postData = async (url, payload, formData) => {
-  const { token } = localStorage.getItem("auth")
-    ? JSON.parse(localStorage.getItem("auth"))
-    : {};
+export async function postData(url, payload, formData) {
+  try {
+    const { token } = localStorage.getItem("auth")
+      ? JSON.parse(localStorage.getItem("auth"))
+      : {};
 
-  return await axios.post(`${config.api_host_dev}${url}`, payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": formData ? "multipart/form-data" : "application/json",
-    },
-  });
-};
+    return await axios.post(`${config.api_host_dev}${url}`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": formData ? "multipart/form-data" : "application/json",
+      },
+    });
+  } catch (err) {
+    return handleError(err);
+  }
+}
 
-export const putData = async (url, payload) => {
-  const { token } = localStorage.getItem("auth")
-    ? JSON.parse(localStorage.getItem("auth"))
-    : {};
+export async function putData(url, payload) {
+  try {
+    const { token } = localStorage.getItem("auth")
+      ? JSON.parse(localStorage.getItem("auth"))
+      : {};
 
-  return await axios.put(`${config.api_host_dev}${url}`, payload, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-};
+    return await axios.put(`${config.api_host_dev}${url}`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    return handleError(err);
+  }
+}
 
-export const deleteData = async (url) => {
-  const { token } = localStorage.getItem("auth")
-    ? JSON.parse(localStorage.getItem("auth"))
-    : {};
+export async function deleteData(url) {
+  try {
+    const { token } = localStorage.getItem("auth")
+      ? JSON.parse(localStorage.getItem("auth"))
+      : {};
 
-  return await axios.delete(`${config.api_host_dev}${url}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
+    return await axios.delete(`${config.api_host_dev}${url}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    return handleError(err);
+  }
+}

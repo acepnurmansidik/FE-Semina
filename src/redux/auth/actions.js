@@ -1,10 +1,12 @@
 import { USER_LOGIN, USER_LOGGOUT } from "./constants";
 
-export const userLogin = (token, role) => {
+export const userLogin = (token, role, email, refreshToken) => {
   return {
     type: USER_LOGIN,
-    token,
     role,
+    email,
+    token,
+    refreshToken,
   };
 };
 

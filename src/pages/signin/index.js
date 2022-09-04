@@ -34,16 +34,23 @@ const PageSignin = () => {
 
   const handleOnSubmit = async (e) => {
     setIsLoading(true);
-    try {
-      const response = await postData(`/cms/auth/signin`, form);
 
-      dispatch(userLogin(response.data.data.token, response.data.data.role));
+    const response = await postData(`/cms/auth/signin`, form);
+    if (response?.data?.data) {
+      dispatch(
+        userLogin(
+          response.data.data.token,
+          response.data.data.role,
+          response.data.data.email,
+          response.data.data.refreshToken
+        )
+      );
       navigate("/");
-    } catch (err) {
+    } else {
       setIsLoading(false);
       setAlert({
         status: true,
-        message: err?.response?.data?.msg ?? "Internal server error",
+        message: response?.response?.data?.msg ?? "Internal server error",
         type: "danger",
       });
     }
