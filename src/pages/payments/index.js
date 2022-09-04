@@ -12,7 +12,7 @@ import Table from "../../components/TableWithAction";
 import SAlert from "../../components/Alert";
 import Swal from "sweetalert2";
 
-function PaymentsPage() {
+const PaymentsPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -97,6 +97,6 @@ function PaymentsPage() {
       />
     </Container>
   );
-}
+};
 
 export default PaymentsPage;

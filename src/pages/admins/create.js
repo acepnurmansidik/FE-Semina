@@ -36,9 +36,9 @@ const AdminCreatePage = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    try {
-      const response = await postData("/cms/users", form);
 
+    const response = await postData("/cms/users", form);
+    if (response?.data?.data) {
       dispatch(
         setNotif(
           true,
@@ -48,12 +48,13 @@ const AdminCreatePage = () => {
       );
       setIsLoading(false);
       navigate("/admin");
-    } catch (err) {
+    } else {
+      console.log(response?.response?.data?.msg);
       setIsLoading(false);
       setAlert({
         status: true,
         type: "danger",
-        message: err?.response?.data?.msg,
+        message: response?.response?.data?.msg.split(",")[0],
       });
     }
   };

@@ -3,13 +3,13 @@ import { Form } from "react-bootstrap";
 import SButton from "../../components/Button";
 import TextInputWithLabel from "../../components/TextInputWithLabel";
 
-export default function CategoriesForm({
+const CategoriesForm = ({
   form,
   handleChange,
   handleSubmit,
   isLoading,
   edit,
-}) {
+}) => {
   return (
     <Form>
       <TextInputWithLabel
@@ -25,4 +25,6 @@ export default function CategoriesForm({
       </SButton>
     </Form>
   );
-}
+};
+
+export default CategoriesForm;

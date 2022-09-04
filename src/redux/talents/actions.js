@@ -42,7 +42,7 @@ export const fetchTalents = () => {
     try {
       setTimeout(() => {
         dispacth(clearNotif());
-      }, 1000);
+      }, 5000);
 
       let params = {
         keyword: getState().talents.keyword,

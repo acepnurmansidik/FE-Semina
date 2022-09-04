@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { deleteData } from "../../utils/fetch";
 import { setNotif } from "../../redux/notif/actions";
 
-function Categories() {
+const Categories = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [access, setAccess] = useState({
@@ -109,6 +109,6 @@ function Categories() {
       </Container>
     </>
   );
-}
+};
 
 export default Categories;

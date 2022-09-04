@@ -53,9 +53,9 @@ const AdminEditPage = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    try {
-      const response = await postData("/cms/users", form);
 
+    const response = await postData("/cms/users", form);
+    if (response?.data?.data) {
       dispatch(
         setNotif(
           true,
@@ -65,12 +65,12 @@ const AdminEditPage = () => {
       );
       setIsLoading(false);
       navigate("/admin");
-    } catch (err) {
+    } else {
       setIsLoading(false);
       setAlert({
         status: true,
         type: "danger",
-        message: err?.message?.data?.msg,
+        message: response?.response?.data?.msg.split(",")[0],
       });
     }
   };

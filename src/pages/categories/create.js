@@ -30,9 +30,8 @@ const CategoryCreate = () => {
 
   const handleSubmit = async (e) => {
     setIsLoading(true);
-    try {
-      const response = await postData("/cms/categories", form);
-
+    const response = await postData("/cms/categories", form);
+    if (response?.data?.data) {
       dispatch(
         setNotif(
           true,
@@ -42,12 +41,12 @@ const CategoryCreate = () => {
       );
       setIsLoading(false);
       navigate("/categories");
-    } catch (err) {
+    } else {
       setIsLoading(false);
       setAlert({
         status: true,
         type: "danger",
-        message: err?.response?.data?.msg,
+        message: response?.response?.data?.msg.split(",")[0],
       });
     }
   };

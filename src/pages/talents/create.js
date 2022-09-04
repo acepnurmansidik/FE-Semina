@@ -81,15 +81,16 @@ const TalentsCreate = () => {
 
   const hanldeSubmit = async () => {
     setIsLoading(true);
-    try {
-      const payload = {
-        image: form.file,
-        role: form.role,
-        name: form.name,
-      };
 
-      const res = await postData("/cms/talents", payload);
+    const payload = {
+      image: form.file,
+      role: form.role,
+      name: form.name,
+    };
 
+    const res = await postData("/cms/talents", payload);
+
+    if (res?.data?.data) {
       dispatch(
         setNotif(
           true,
@@ -100,13 +101,13 @@ const TalentsCreate = () => {
 
       navigate("/talents");
       setIsLoading(false);
-    } catch (err) {
+    } else {
       setIsLoading(false);
       setAlert({
         ...alert,
         status: true,
         type: "danger",
-        message: err.response.data.msg,
+        message: res?.response?.data?.msg.split(",")[0],
       });
     }
   };

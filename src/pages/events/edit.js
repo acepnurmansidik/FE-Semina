@@ -143,37 +143,36 @@ const EventsCreate = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    try {
-      const payload = {
-        date: form.date,
-        image: form.file,
-        title: form.title,
-        price: form.price,
-        about: form.about,
-        venueName: form.venueName,
-        tagline: form.tagline,
-        keyPoint: form.keyPoint,
-        category: form.category.value,
-        talent: form.talent.value,
-        status: form.status,
-        tickets: form.tickets,
-      };
+    const payload = {
+      date: form.date,
+      image: form.file,
+      title: form.title,
+      price: form.price,
+      about: form.about,
+      venueName: form.venueName,
+      tagline: form.tagline,
+      keyPoint: form.keyPoint,
+      category: form.category.value,
+      talent: form.talent.value,
+      status: form.status,
+      tickets: form.tickets,
+    };
 
-      const res = await putData(`/cms/events/${eventId}`, payload);
-
+    const res = await putData(`/cms/events/${eventId}`, payload);
+    if (res?.data?.data) {
       dispatch(
         setNotif(true, "success", `berhasil ubah events ${res.data.data.title}`)
       );
 
       navigate("/events");
       setIsLoading(false);
-    } catch (err) {
+    } else {
       setIsLoading(false);
       setAlert({
         ...alert,
         status: true,
         type: "danger",
-        message: err.response.data.msg,
+        message: res?.response?.data?.msg.split(",")[0],
       });
     }
   };
@@ -216,6 +215,7 @@ const EventsCreate = () => {
 
     setForm({ ...form, tickets: _temp });
   };
+
   const handleMinusTicket = (index) => {
     let _temp = [...form.tickets];
     let removeIndex = _temp

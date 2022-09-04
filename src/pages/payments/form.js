@@ -4,13 +4,13 @@ import Button from "../../components/Button";
 import TextInputWithLabel from "../../components/TextInputWithLabel";
 import { config } from "../../configs";
 
-export default function SpeakersForm({
+const SpeakersForm = ({
   handleSubmit,
   form,
   handleChange,
   isLoading,
   edit,
-}) {
+}) => {
   return (
     <Form>
       <TextInputWithLabel
@@ -48,4 +48,6 @@ export default function SpeakersForm({
       </Button>
     </Form>
   );
-}
+};
+
+export default SpeakersForm;
